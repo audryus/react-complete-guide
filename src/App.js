@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import './App.css';
 
 import Person from './Person/Person';
@@ -7,6 +8,19 @@ import UserOutput from './UserOutput/UserOutput';
 
 import Validation from './Validation/Validation'
 import Char from './Char/Char'
+
+const StyledButton = styled.button`
+  background-color: ${props => props.any ? 'red': 'green'};
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: ${props => props.any ? 'salmon': 'lightgreen'};
+    color: black;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -63,19 +77,22 @@ class App extends Component {
     const text = this.state.userInput.split('');
     text.splice(index, 1);
     const updatedText = text.join('');
-    console.log(updatedText)
     this.setState({userInput: updatedText});
   }
 
   render() {
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      display: 'block',
-    };
+    // const style = {
+    //   backgroundColor: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   display: 'block',
+    //   ':hover': {
+    //     backgroundColor: 'lightgreen',
+    //     color: 'black'
+    //   }
+    // };
 
     let persons = null;
 
@@ -91,6 +108,11 @@ class App extends Component {
           })}
         </div>
       );
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
+
     }
 
     const charList = this.state.userInput.split('').map((ch, index) => {
@@ -100,10 +122,19 @@ class App extends Component {
         click={() => this.deleteCharHandler(index)}/>
     });
 
+    const classes = [];
+
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
+
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <p>This is really working</p>
+        <p className={classes.join(' ')}>This is really working</p>
         <hr />
 
         <input type="text" 
@@ -113,17 +144,19 @@ class App extends Component {
         <Validation inputLength={this.state.userInput.length} />
         {charList}
         <hr/>
-        {/* Not recommended */}
-        <button 
+        {/* Not recommended 
+        <button
           style={style}
           onClick={() => this.switchNameHandler('Maximilian')}>
             Switch name
         </button>
-        <button
-          style={style}
+        */}
+        <StyledButton
+          any={this.state.showPersons}
           onClick={this.togglePersonHandler}>
           Toggle Persons 
-        </button>
+        </StyledButton>
+        <br/>
 
         {/* Hard way ... 
         this.state.showPersons ? 
