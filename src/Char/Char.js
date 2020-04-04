@@ -1,13 +1,13 @@
 import React from 'react'
 
-import './Char.css';
+import charClasses from './Char.css';
 
 const char = props => {
   return (
-    <div className="Char" onClick={props.click}>
+    <div className={charClasses.Char} onClick={props.click}>
       {props.character}
     </div>
   );
 };
 
-export default char;
+export default char;  

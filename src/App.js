@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import './App.css';
+import appClasses from './App.css';
 
 import Person from './Person/Person';
 import UserInput from './UserInput/UserInput';
@@ -95,6 +95,7 @@ class App extends Component {
     // };
 
     let persons = null;
+    let btnClass = [appClasses.Button];
 
     if (this.state.showPersons) {
       persons = (
@@ -112,7 +113,7 @@ class App extends Component {
       //   backgroundColor: 'salmon',
       //   color: 'black'
       // }
-
+      btnClass.push(appClasses.Red)
     }
 
     const charList = this.state.userInput.split('').map((ch, index) => {
@@ -125,14 +126,14 @@ class App extends Component {
     const classes = [];
 
     if (this.state.persons.length <= 2) {
-      classes.push('red');
+      classes.push(appClasses.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold');
+      classes.push(appClasses.bold);
     }
 
     return (
-      <div className="App">
+      <div className={appClasses.App}>
         <h1>Hi, I'm a React App</h1>
         <p className={classes.join(' ')}>This is really working</p>
         <hr />
@@ -156,6 +157,8 @@ class App extends Component {
           onClick={this.togglePersonHandler}>
           Toggle Persons 
         </StyledButton>
+        <br/>
+        <button className={btnClass.join(' ')}>Testin button dynamic classs</button>
         <br/>
 
         {/* Hard way ... 
