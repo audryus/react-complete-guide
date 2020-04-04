@@ -9,6 +9,8 @@ import UserOutput from './UserOutput/UserOutput';
 import Validation from './Validation/Validation'
 import Char from './Char/Char'
 
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
+
 const StyledButton = styled.button`
   background-color: ${props => props.any ? 'red': 'green'};
   font: inherit;
@@ -101,11 +103,10 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-              return <Person key={person.id}
-                click={this.deletePersonHandler.bind(this, index)}
+              return <ErrorBoundary key={person.id}><Person key={person.id}
                 name={person.name} 
                 age={person.age}
-                changed={(event) => this.nameChangerHandler(event, person.id)}/>
+                changed={(event) => this.nameChangerHandler(event, person.id)}/></ErrorBoundary>
           })}
         </div>
       );
@@ -158,7 +159,10 @@ class App extends Component {
           Toggle Persons 
         </StyledButton>
         <br/>
-        <button className={btnClass.join(' ')}>Testin button dynamic classs</button>
+        <button 
+          className={btnClass.join(' ')}>
+            Testin button dynamic classs
+        </button>
         <br/>
 
         {/* Hard way ... 

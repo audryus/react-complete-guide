@@ -17,9 +17,14 @@ import classes from './Person.css';
 // `;
 
 const person = (props) => {
+
+  const throwNewError = () => {
+    throw new Error("Randon thing to happend in production.");
+  }
+
   return (
     <div className={classes.Person}>
-      <p onClick={props.click}>
+      <p onClick={throwNewError}>
         I'm {props.name} and I m {props.age} years old !
       </p>
       <p>{props.children}</p>
